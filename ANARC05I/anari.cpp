@@ -1,51 +1,42 @@
-#include <cstdio>
-
+#include<iostream>
+#include<cstring>
 using namespace std;
-
-int count;
-
-void visit( bool visited[][ 2002 ], int x, int y ) {
-    if ( visited[ x ][ y ] ) {
-        ++count;
+#define lld signed long long int
+bool d[3000][3000]={0};
+int main()
+{
+    char ss[1000+5];
+    while(1)
+    {
+        cin>>ss;
+        if(ss[0]=='Q')return 0;
+        int len=strlen(ss),x=1500,y=1500,ans=0;
+        d[x][y]=1;
+        for(int i=0;i<=len-2;++i)
+        {
+            switch(ss[i])
+            {
+                case 'U':++x;break;
+                case 'D':--x;break;
+                case 'L':--y;break;
+                case 'R':++y;break;
+            }
+            if(d[x][y])++ans;
+            else d[x][y]=1;
+        }
+        x=1500,y=1500;
+        for(int i=0;i<=len-2;++i)
+        {
+            switch(ss[i])
+            {
+                case 'U':++x;break;
+                case 'D':--x;break;
+                case 'L':--y;break;
+                case 'R':++y;break;
+            }
+            d[x][y]=0;
+        }
+        cout<<ans<<endl;
     }
 }
 
-int main() {
-    char s[ 1001 ];
-    bool visited[ 2002 ][ 2002 ];
-    int i, j, posx, posy;
-    while ( 1 ) {
-        scanf( "%s", s );
-        if ( s[ 0 ] == 'Q' ) {
-            break;
-        }
-        for ( i = 0; i < 2002; ++i ) {
-            for ( j = 0; j < 2002; ++j ) {
-                visited[ i ][ j ] = false;
-            }
-        }
-        posx = posy = 1001;
-        count = 0;
-        for ( i = 0; s[ i ] != 'Q'; ++i ) {
-            visited[ posx ][ posy ] = true;
-            if ( s[ i ] == 'U' ) {
-                visit( visited, posx - 1, posy );
-                --posx;
-            }
-            if ( s[ i ] == 'D' ) {
-                visit( visited, posx + 1, posy );
-                ++posx;
-            }
-            if ( s[ i ] == 'L' ) {
-                visit( visited, posx, posy - 1 );
-                --posy;
-            }
-            if ( s[ i ] == 'R' ) {
-                visit( visited, posx, posy + 1 );
-                ++posy;
-            }
-        }
-        printf( "%d\n", count );
-    }
-    return 0;
-}
