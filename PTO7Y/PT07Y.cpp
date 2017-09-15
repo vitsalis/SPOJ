@@ -45,6 +45,7 @@ int main() {
 	for ( i = 0; i < M; ++i ) {
 		fscanf( stdin, "%d%d", &u, &v );
 		graph[ u ].push_back( v );
+		graph[ v ].push_back( u ); //This line is added as we're asked to implement undirected graph.
 	}
 	if ( bfs( graph, 1, N ) ) {
 		fprintf( stdout, "YES\n" );
